@@ -2,6 +2,7 @@
 
 import { useAppSelector } from '@/app/redux'
 import { setIsSidebarCollapsed } from '@/state'
+import { useGetProjectsQuery } from '@/state/api'
 import { AlertCircle,AlertOctagon,AlertTriangle,Briefcase,ChevronDown,ChevronUp,Home,Layers3,LockIcon,LucideIcon,Search,Settings,ShieldAlert,User,Users,X,} from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -14,6 +15,7 @@ const Sidebar = () => {
     const [showPriority,setShowPriority] = useState(true)
     const isSideabarCollapsed = useAppSelector(state => state.global.isSidebarCollapsed)
     const dispatch = useDispatch()
+    const { data: projects } = useGetProjectsQuery()
     const sidebarClassNames = `fixed flex flex-col h-full justify-between shadow-xl z-40 dark:bg-black overflow-y-auto bg-white ${isSideabarCollapsed ? 'w-0 hiddem' : 'w-64'}`
     return (
         <div className={sidebarClassNames}>
@@ -52,6 +54,16 @@ const Sidebar = () => {
                     <span className=''>Projects</span>
                     {showProjects ? <ChevronUp className='size-5' /> : <ChevronDown className='size-5' />}
                 </button>
+
+                {showProjects && (
+                    <div className='flex flex-col gap-2'>
+                        {projects?.map((project) => (
+                            <SidebarLink key={project.id} icon={Briefcase} label={project.name} href={`/projects/${project.id}`} />
+                        ))}
+                    </div>
+                )}
+
+
                 {/* Projects Links */}
                 <button onClick={() => setShowPriority(prev => !prev)} className='flex w-full items-center justify-between px-8 py-3 text-gray-500'>
                     <span className=''>Priority</span>
