@@ -22,7 +22,7 @@ const Project = ({ params }: Props) => {
             {/* Modal new tasks */}
             <ProjectHeader activeTab={activeTab} setActiveTab={setActiveTab} />
 
-            {activeTab === "Board" && <Board id={id} setModalNewTaskOpen={setIsModalNewTaskOpen} />}
+            {activeTab === "Board" && <Board id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />}
         </div>
     )
 }

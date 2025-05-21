@@ -33,8 +33,8 @@ export interface User {
 }
 
 export interface Attachment {
+    fileURL: string;
     id: number;
-    fileUrl: string;
     fileName: string;
     taskId: number;
     uploadedById: number;
@@ -53,17 +53,18 @@ export interface Task {
     description?: string;
     status?: Status;
     priority?: Priority;
-    tags?: string[];
+    tags?: string;
     startDate?: string;
     dueDate?: string;
     points?: number;
-    projectId?: number;
+    projectId: number;
     authorUserId?: number;
     assignedUserId?: number;
-    authorUser?: User;
-    assignedUser?: User;
+    author?: User;
+    assignee?: User;
     comments?: Comment[];
     attachments?: Attachment[];
+    fileURL?: string;
 }
 
 export const api = createApi({
